@@ -32,29 +32,48 @@ def calcula_minutos_y_segundos(inicio: datetime, fin: datetime) -> tuple:
         Una tupla (minutos, segundos) con la diferencia entre los dos datetime
     """
     # TODO: Implementa esta función
-    from datetime import datetime
     tiempo_transcurrido = fin - inicio
-    type(tiempo_transcurrido)
-    print (f"Han pasado ¨{tiempo_transcurrido.min} minutos,{tiempo_transcurrido.seconds} segundos")
+    # type(tiempo_transcurrido)
+    print (f"Han pasado {(tiempo_transcurrido.seconds)//60} minutos, {tiempo_transcurrido.seconds} segundos")
 
-calcula_minutos_y_segundos(datetime.datetime(2024, 1, 1, 23, 0, 0), datetime.datetime(2024, 1, 1, 23, 0, 30))
+def obtener_pistas(secreta:str, intento:str) -> str:
+    res = 0
+    for i in intento:
+        if secreta.find(i) == i and len(secreta.find(i))==len(intento.find(i)):
+            return "V"
+        elif secreta.find(i) == i:
+            return "A"
+        else:
+            return "_"
+    res += 1
+        
+
 
 # TODO: Escribe la cabecera completa e implementa la función quitar_letra
+def quitar_letras(palabra:str, caracter:str) -> str:
+    palabra = palabra.replace(caracter, "",1)
+    return palabra
+
+def marcar_verdes(secreta: str, intento: str) -> str:
+    verdes = ""
+    restantes = ""
+    pos = 0
+    for i in secreta:
+        if i in intento:
+            if pos >= len(intento) or intento[pos] != i:
+                verdes += "_"
+                restantes += i
+            else:
+                verdes += "V"
+        else:
+            verdes += "_" 
+            restantes += i
+        pos += 1
+    return verdes, restantes
 
 # TODO: Escribe la cabecera completa e implementa la función marcar_verdes
 
 # TODO: Escribe la cabecera completa e implementa la función marcar_amarillos
 
-def obtener_pistas(palabra_secreta: str, intento: str) -> str:
-    """
-    Devuelve la cadena de pistas para un intento dado.
-    Parámetros:
-        palabra_secreta: la palabra secreta
-        intento: la palabra del intento
-    Devuelve:
-        Una cadena de 5 caracteres con 'V', 'A' y '_'
-    """
-    # TODO: Implementa esta función
-    return "_____"  # Elimina esta línea cuando la implementes
 
 
