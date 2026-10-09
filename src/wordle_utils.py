@@ -54,13 +54,14 @@ def quitar_letras(palabra:str, caracter:str) -> str:
     palabra = palabra.replace(caracter, "",1)
     return palabra
 
+# TODO: Escribe la cabecera completa e implementa la función marcar_verdes
 def marcar_verdes(secreta: str, intento: str) -> str:
     verdes = ""
     restantes = ""
     pos = 0
     for i in secreta:
         if i in intento:
-            if pos >= len(intento) or intento[pos] != i:
+            if secreta[pos] != intento[pos]:
                 verdes += "_"
                 restantes += i
             else:
@@ -71,9 +72,38 @@ def marcar_verdes(secreta: str, intento: str) -> str:
         pos += 1
     return verdes, restantes
 
-# TODO: Escribe la cabecera completa e implementa la función marcar_verdes
-
 # TODO: Escribe la cabecera completa e implementa la función marcar_amarillos
 
+def marcar_amarillos(intento:str, verdes:str,restantes:str)->str:
+    colores = ""
+    pos = 0
+    for i in intento:
+        if verdes[pos] == "V":
+            colores += "V"
+        else: 
+            if i in restantes:
+                colores +="A"
+            else:
+                colores +="_"
+        pos +=1
+    return colores
 
+def obtener_pistas(secreta: str, intento: str) -> str:
+    '''
+    Obtiene la palabra secreta y el intento y devuelve la cadena de colores
+    '''
+    # 1. Obtenemos la máscara de verdes ("V" o "_")
+    verdes = marcar_verdes(secreta, intento)
+    
+    restantes = ""
+    pos = 0
+    for i in secreta:
+        # Si NO es verde, guardamos la letra de la palabra secreta como disponible
+        if verdes[pos] != "V":
+            restantes += i
+        pos += 1
 
+    # Llamamos a marcar_amarillos con las tres cadenas listas
+    colores = marcar_amarillos(intento, verdes, restantes)
+
+    return colores
