@@ -77,8 +77,9 @@ def marcar_verdes(secreta: str, intento: str) -> str:
 def marcar_amarillos(intento:str, verdes:str,restantes:str)->str:
     colores = ""
     pos = 0
+    verdes2 = verdes[0]
     for i in intento:
-        if verdes[pos] == "V":
+        if verdes2[pos] == "V":
             colores += "V"
         else: 
             if i in restantes:
@@ -89,21 +90,13 @@ def marcar_amarillos(intento:str, verdes:str,restantes:str)->str:
     return colores
 
 def obtener_pistas(secreta: str, intento: str) -> str:
-    '''
-    Obtiene la palabra secreta y el intento y devuelve la cadena de colores
-    '''
-    # 1. Obtenemos la máscara de verdes ("V" o "_")
     verdes = marcar_verdes(secreta, intento)
     
     restantes = ""
-    pos = 0
-    for i in secreta:
-        # Si NO es verde, guardamos la letra de la palabra secreta como disponible
-        if verdes[pos] != "V":
-            restantes += i
-        pos += 1
+    verdes2 = verdes[0]
+    for pos in range(len(secreta)):
+        if verdes2[pos] != "V":
+            restantes += "_"
+            pos += 1
 
-    # Llamamos a marcar_amarillos con las tres cadenas listas
-    colores = marcar_amarillos(intento, verdes, restantes)
-
-    return colores
+    return marcar_amarillos(intento, verdes, restantes)
